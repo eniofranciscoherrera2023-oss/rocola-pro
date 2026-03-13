@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROCOLA PRO — Sistema Digital de Rocola</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #FFD200;
+    --red: #E8000D;
+    --white: #FFFFFF;
+    --dark: #0a0a0a;
+    --dark2: #111111;
+    --dark3: #1a1a1a;
+    --gray: #888;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 60px;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,210,0,0.15);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 3px;
+    color: var(--white);
+  }
+  .nav-logo span { color: var(--gold); }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 36px;
+  }
+  nav ul a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  nav ul a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--dark) !important;
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-weight: 700 !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+  }
+  .nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255,210,0,0.4);
+    color: var(--dark) !important;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 100px 60px 60px;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(232,0,13,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 80% 20%, rgba(255,210,0,0.08) 0%, transparent 60%),
+      linear-gradient(180deg, #0a0a0a 0%, #0f0505 100%);
+  }
+
+  /* Disco girando de fondo */
+  .hero-disc {
+    position: absolute;
+    right: -100px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 50% 50%, #1a1a1a 0%, #0a0a0a 30%, #1a1a1a 31%, #111 60%, #222 61%, #111 100%);
+    opacity: 0.25;
+    animation: spin 20s linear infinite;
+  }
+  .hero-disc::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--red);
+  }
+  @keyframes spin { to { transform: translateY(-50%) rotate(360deg); } }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,210,0,0.1);
+    border: 1px solid rgba(255,210,0,0.3);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 10vw, 110px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero h1 .gold { color: var(--gold); }
+  .hero h1 .red  { color: var(--red); }
+
+  .hero-sub {
+    font-size: 18px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    margin-bottom: 40px;
+    max-width: 520px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--dark);
+    padding: 16px 36px;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255,210,0,0.4);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    padding: 16px 36px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 4px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: border-color 0.2s, background 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    background: rgba(255,210,0,0.05);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+    margin-top: 60px;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── VIDEO ── */
+  .section-video {
+    padding: 100px 60px;
+    background: var(--dark2);
+    position: relative;
+  }
+
+  .section-label {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    text-align: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 6vw, 64px);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+
+  .section-desc {
+    text-align: center;
+    color: var(--gray);
+    font-size: 16px;
+    max-width: 560px;
+    margin: 0 auto 56px;
+    line-height: 1.7;
+  }
+
+  .video-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,210,0,0.2);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+    position: relative;
+    background: #000;
+    aspect-ratio: 16/9;
+  }
+
+  .video-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a0a0a, #0a0a1a);
+    gap: 20px;
+    min-height: 400px;
+  }
+
+  .play-btn {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 28px;
+    color: var(--dark);
+    text-decoration: none;
+  }
+  .play-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 40px rgba(255,210,0,0.5);
+  }
+
+  .video-placeholder p {
+    color: var(--gray);
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  /* ── CARACTERÍSTICAS ── */
+  .section-features {
+    padding: 100px 60px;
+    background: var(--dark);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2px;
+    max-width: 1100px;
+    margin: 0 auto;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .feature-card {
+    background: var(--dark2);
+    padding: 40px 36px;
+    transition: background 0.3s;
+    position: relative;
+  }
+  .feature-card:hover { background: var(--dark3); }
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--red));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-icon {
+    font-size: 36px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .feature-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+
+  .feature-desc {
+    color: var(--gray);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* ── PRECIOS ── */
+  .section-pricing {
+    padding: 100px 60px;
+    background: var(--dark2);
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .plan-card {
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 40px 32px;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .plan-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .plan-card.featured {
+    border-color: var(--gold);
+    background: linear-gradient(160deg, #1a1500, #0a0a0a);
+  }
+
+  .plan-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--dark);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 16px;
+    border-radius: 20px;
+  }
+
+  .plan-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .plan-card.featured .plan-name { color: var(--gold); }
+
+  .plan-desc {
+    color: var(--gray);
+    font-size: 13px;
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  .plan-price {
+    margin-bottom: 32px;
+  }
+  .plan-price .amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: var(--white);
+    line-height: 1;
+  }
+  .plan-card.featured .plan-price .amount { color: var(--gold); }
+  .plan-price .currency {
+    font-size: 20px;
+    vertical-align: super;
+    color: var(--gray);
+    font-weight: 700;
+  }
+  .plan-price .period {
+    display: block;
+    color: var(--gray);
+    font-size: 12px;
+    margin-top: 4px;
+    letter-spacing: 1px;
+  }
+
+  .plan-features {
+    list-style: none;
+    margin-bottom: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .plan-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.4;
+  }
+  .plan-features li .check {
+    color: var(--gold);
+    font-weight: 900;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .plan-btn {
+    display: block;
+    text-align: center;
+    padding: 14px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .plan-btn-outline {
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--white);
+  }
+  .plan-btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .plan-btn-gold {
+    background: var(--gold);
+    color: var(--dark);
+  }
+  .plan-btn-gold:hover {
+    box-shadow: 0 8px 24px rgba(255,210,0,0.4);
+    transform: translateY(-2px);
+  }
+
+  /* ── TESTIMONIOS ── */
+  .section-testimonials {
+    padding: 100px 60px;
+    background: var(--dark);
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .testimonial-card {
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 32px;
+    position: relative;
+  }
+  .testimonial-card::before {
+    content: '"';
+    position: absolute;
+    top: 20px; right: 24px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 80px;
+    color: rgba(255,210,0,0.1);
+    line-height: 1;
+  }
+
+  .stars {
+    color: var(--gold);
+    font-size: 16px;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+  }
+
+  .testimonial-text {
+    color: rgba(255,255,255,0.75);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .author-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--red));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--dark);
+    flex-shrink: 0;
+  }
+  .author-name {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .author-role {
+    color: var(--gray);
+    font-size: 12px;
+    margin-top: 2px;
+  }
+
+  /* ── CONTACTO ── */
+  .section-contact {
+    padding: 100px 60px;
+    background: var(--dark2);
+  }
+
+  .contact-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .contact-options {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 48px;
+  }
+
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 36px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .whatsapp-btn {
+    background: #25D366;
+    color: #fff;
+  }
+  .whatsapp-btn:hover {
+    background: #20bd5a;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(37,211,102,0.35);
+  }
+
+  .email-btn {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .email-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-3px);
+  }
+
+  .contact-note {
+    color: var(--gray);
+    font-size: 13px;
+    margin-top: 32px;
+    line-height: 1.6;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #050505;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 40px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: gap;
+    gap: 20px;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+  }
+  .footer-logo span { color: var(--gold); }
+
+  footer p {
+    color: var(--gray);
+    font-size: 12px;
+    text-align: center;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--red));
+    margin: 0 auto 48px;
+    border-radius: 2px;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    nav ul { display: none; }
+    .hero { padding: 100px 20px 60px; }
+    .hero-stats { gap: 24px; flex-wrap: wrap; }
+    .section-video, .section-features, .section-pricing,
+    .section-testimonials, .section-contact { padding: 70px 20px; }
+    footer { padding: 30px 20px; flex-direction: column; text-align: center; }
+    .hero-disc { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">ROCOLA<span>PRO</span></div>
+  <ul>
+    <li><a href="#video">Demo</a></li>
+    <li><a href="#features">Características</a></li>
+    <li><a href="#pricing">Precios</a></li>
+    <li><a href="#contact" class="nav-cta">Contactar</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-disc"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🎵 Sistema Digital de Rocola</div>
+    <h1>
+      ROCOLA<br>
+      <span class="gold">PRO</span>
+    </h1>
+    <p class="hero-sub">
+      Moderniza tu negocio con el sistema de rocola digital más completo del mercado.
+      Fácil de usar, personalizable y sin mensualidades.
+    </p>
+    <div class="hero-btns">
+      <a href="#pricing" class="btn-primary">▶ Ver planes y precios</a>
+      <a href="#video" class="btn-secondary">▷ Ver demostración</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Digital y moderno</div>
+      </div>
+      <div>
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Canciones ilimitadas</div>
+      </div>
+      <div>
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Funciona sin internet</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRUEBA GRATIS -->
+<section style="background: linear-gradient(135deg, #1a0a00, #0a0a1a); padding: 60px; text-align: center; border-top: 1px solid rgba(255,210,0,0.2); border-bottom: 1px solid rgba(255,210,0,0.2);">
+  <div style="max-width: 700px; margin: 0 auto;">
+    <div style="font-size: 48px; margin-bottom: 16px;">🎵</div>
+    <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: #FFD200; letter-spacing: 2px; margin-bottom: 12px;">PRUÉBALO GRATIS 5 DÍAS</h2>
+    <p style="color: rgba(255,255,255,0.7); font-size: 16px; line-height: 1.7; margin-bottom: 32px;">Sin tarjeta de crédito. Sin compromisos. Descarga Rocola Pro y pruébalo en tu negocio durante 5 días completos. Si te convence, adquiere tu licencia. Si no, no pagas nada.</p>
+    <a href="https://wa.me/50254054610?text=Hola,%20quiero%20probar%20Rocola%20Pro%20gratis%205%20días" style="display: inline-block; background: #FFD200; color: #0a0a0a; padding: 16px 48px; font-weight: 800; font-size: 15px; letter-spacing: 1px; text-transform: uppercase; border-radius: 4px; text-decoration: none; transition: all 0.2s;" target="_blank">⬇ Solicitar versión de prueba</a>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section class="section-video" id="video">
+  <div class="section-label">En acción</div>
+  <h2 class="section-title">MÍRALO FUNCIONAR</h2>
+  <div class="divider"></div>
+  <p class="section-desc">Un vistazo de 60 segundos que te dirá todo lo que necesitas saber.</p>
+  <div class="video-wrapper reveal">
+    <iframe src="https://drive.google.com/file/d/1A2Rn-gWWBlTAohtl6bfWANwgqRl2c0QC/preview" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+  </div>
+</section>
+
+<!-- CARACTERÍSTICAS -->
+<section class="section-features" id="features">
+  <div class="section-label">Por qué elegirnos</div>
+  <h2 class="section-title">TODO LO QUE NECESITAS</h2>
+  <div class="divider"></div>
+  <p class="section-desc">Diseñado específicamente para negocios de rocola en Latinoamérica.</p>
+
+  <div class="features-grid reveal">
+    <div class="feature-card">
+      <span class="feature-icon">🎵</span>
+      <div class="feature-title">Cola de canciones</div>
+      <p class="feature-desc">Los clientes seleccionan sus canciones favoritas y se reproducen en orden automáticamente sin que nadie tenga que intervenir.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🪙</span>
+      <div class="feature-title">Sistema de créditos</div>
+      <p class="feature-desc">Control total con el sistema de monedas. Cada inserción de crédito habilita la selección de canciones según tus reglas.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🖼️</span>
+      <div class="feature-title">Slideshow de fotos</div>
+      <p class="feature-desc">Muestra fotos personalizadas mientras se reproduce la música. Las imágenes se muestran en orden aleatorio con animación suave.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🎨</span>
+      <div class="feature-title">100% personalizable</div>
+      <p class="feature-desc">Agrega el nombre de tu negocio, tu logo, tu música y tus fotos. Cada instalación es única para cada cliente.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📁</span>
+      <div class="feature-title">Fácil de actualizar</div>
+      <p class="feature-desc">Agrega nuevas canciones simplemente copiando archivos MP3 a la carpeta correcta. Sin conocimientos técnicos necesarios.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">💾</span>
+      <div class="feature-title">Sin internet</div>
+      <p class="feature-desc">Funciona completamente sin conexión a internet. Ideal para bares, restaurantes y salones de cualquier zona.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">⚡</span>
+      <div class="feature-title">Arranque automático</div>
+      <p class="feature-desc">Se configura para iniciar automáticamente cuando enciende la computadora. Tu negocio listo desde el primer momento.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🖥️</span>
+      <div class="feature-title">Pantalla completa</div>
+      <p class="feature-desc">Diseño profesional en pantalla completa con colores vivos, logo personalizado y animaciones que impresionan a tus clientes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section class="section-pricing" id="pricing">
+  <div class="section-label">Inversión</div>
+  <h2 class="section-title">PLANES Y PRECIOS</h2>
+  <div class="divider"></div>
+  <p class="section-desc">Sin mensualidades. Pagas una vez y es tuyo para siempre. <strong style="color:var(--gold)">Prueba gratis 5 días.</strong></p>
+
+  <div class="pricing-grid reveal">
+
+    <!-- BÁSICO -->
+    <div class="plan-card">
+      <div class="plan-name">Básico</div>
+      <p class="plan-desc">Perfecto para comenzar. Todo lo esencial para tu rocola digital.</p>
+      <div class="plan-price">
+        <span class="currency">$</span><span class="amount">80</span>
+        <span class="period">USD — pago único</span>
+      </div>
+      <ul class="plan-features">
+        <li><span class="check">✓</span> Licencia para 1 computadora</li>
+        <li><span class="check">✓</span> Sistema de créditos y cola</li>
+        <li><span class="check">✓</span> Slideshow de fotos aleatorio</li>
+        <li><span class="check">✓</span> Canciones ilimitadas</li>
+        <li><span class="check">✓</span> Personalización de nombre y logo</li>
+        <li><span class="check">✓</span> Soporte por WhatsApp 30 días</li>
+        <li><span class="check">✓</span> Prueba gratuita 5 días</li>
+      </ul>
+      <a href="#contact" class="plan-btn plan-btn-outline">Solicitar ahora</a>
+    </div>
+
+    <!-- PRO (destacado) -->
+    <div class="plan-card featured">
+      <div class="plan-badge">⭐ MÁS POPULAR</div>
+      <div class="plan-name">Pro</div>
+      <p class="plan-desc">La opción completa con logo personalizado y soporte extendido.</p>
+      <div class="plan-price">
+        <span class="currency">$</span><span class="amount">120</span>
+        <span class="period">USD — pago único</span>
+      </div>
+      <ul class="plan-features">
+        <li><span class="check">✓</span> Licencia para 3 computadoras</li>
+        <li><span class="check">✓</span> Todo lo del plan Básico</li>
+        <li><span class="check">✓</span> Logo de tu negocio integrado</li>
+        <li><span class="check">✓</span> Instalación y configuración incluida</li>
+        <li><span class="check">✓</span> Arranque automático configurado</li>
+        <li><span class="check">✓</span> Soporte por WhatsApp 90 días</li>
+        <li><span class="check">✓</span> Prueba gratuita 5 días</li>
+      </ul>
+      <a href="#contact" class="plan-btn plan-btn-gold">Solicitar ahora</a>
+    </div>
+
+    <!-- EMPRESARIAL -->
+    <div class="plan-card">
+      <div class="plan-name">Empresarial</div>
+      <p class="plan-desc">Para negocios con múltiples rocolas. Licencia para todas tus máquinas.</p>
+      <div class="plan-price">
+        <span class="currency">$</span><span class="amount">200</span>
+        <span class="period">USD — pago único</span>
+      </div>
+      <ul class="plan-features">
+        <li><span class="check">✓</span> Licencia para 5 computadoras</li>
+        <li><span class="check">✓</span> Todo lo del plan Pro</li>
+        <li><span class="check">✓</span> Actualizaciones gratuitas 1 año</li>
+        <li><span class="check">✓</span> Soporte prioritario 6 meses</li>
+        <li><span class="check">✓</span> Capacitación incluida</li>
+        <li><span class="check">✓</span> Prueba gratuita 5 días</li>
+      </ul>
+      <a href="#contact" class="plan-btn plan-btn-outline">Solicitar ahora</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="section-testimonials" id="testimonials">
+  <div class="section-label">Lo que dicen</div>
+  <h2 class="section-title">CLIENTES SATISFECHOS</h2>
+  <div class="divider"></div>
+
+  <div class="testimonials-grid reveal">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">
+        "Le dimos un giro total a nuestro bar. Los clientes están encantados con el sistema, 
+        se nota que es moderno y profesional. Excelente inversión."
+      </p>
+      <div class="testimonial-author">
+        <div class="author-avatar">C</div>
+        <div>
+          <div class="author-name">Carlos M.</div>
+          <div class="author-role">Propietario, Bar La Esquina</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">
+        "El sistema anterior nos daba muchos problemas. Con Rocola Pro todo funciona perfecto 
+        desde el primer día. El soporte es excelente."
+      </p>
+      <div class="testimonial-author">
+        <div class="author-avatar">R</div>
+        <div>
+          <div class="author-name">Roberto S.</div>
+          <div class="author-role">Negocio de Rocolas, Guatemala</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">
+        "Me encantó que puedo agregar mis propias fotos y música. 
+        Quedó con el estilo de mi negocio. Muy recomendado."
+      </p>
+      <div class="testimonial-author">
+        <div class="author-avatar">M</div>
+        <div>
+          <div class="author-name">María L.</div>
+          <div class="author-role">Restaurante El Fogón</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="section-contact" id="contact">
+  <div class="contact-wrapper">
+    <div class="section-label">Hablemos</div>
+    <h2 class="section-title">¿LISTO PARA MODERNIZAR<br>TU ROCOLA?</h2>
+    <div class="divider"></div>
+    <p class="section-desc">
+      Contáctanos ahora y te asesoramos sin compromiso. 
+      Te decimos qué plan se adapta mejor a tu negocio.
+    </p>
+    <div class="contact-options reveal">
+      <a href="https://wa.me/50254054610?text=Hola,%20me%20interesa%20Rocola%20Pro" 
+         class="contact-btn whatsapp-btn" target="_blank">
+        💬 Escribir por WhatsApp
+      </a>
+      <a href="mailto:technomediasoluciones@gmail.com" class="contact-btn email-btn">
+        ✉ Enviar un correo
+      </a>
+    </div>
+    <p class="contact-note">
+      Respondemos en menos de 24 horas · Asesoría gratuita sin compromiso<br>
+      Instalación disponible en toda Guatemala
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ROCOLA<span>PRO</span></div>
+  <p>© 2026 Rocola Pro · Todos los derechos reservados</p>
+  <p style="color: var(--gray); font-size: 12px;">Hecho en Guatemala 🇬🇹</p>
+</footer>
+
+<!-- SCROLL REVEAL SCRIPT -->
+<script>
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Activar elementos que ya están visibles al cargar
+  setTimeout(() => {
+    document.querySelectorAll('.reveal').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        el.classList.add('visible');
+      }
+    });
+  }, 100);
+</script>
+</body>
+</html>
