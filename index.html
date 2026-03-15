@@ -681,9 +681,13 @@
 
   /* ── SCROLL REVEAL ── */
   .reveal {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.hidden {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
   }
   .reveal.visible {
     opacity: 1;
@@ -820,6 +824,21 @@
       <span class="feature-icon">🖥️</span>
       <div class="feature-title">Pantalla completa</div>
       <p class="feature-desc">Diseño profesional en pantalla completa con colores vivos, logo personalizado y animaciones que impresionan a tus clientes.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🎬</span>
+      <div class="feature-title">Reproducción de videos MP4</div>
+      <p class="feature-desc">Agrega videos musicales a tu rocola. El sistema los reproduce en pantalla completa con audio sincronizado, mezclados con canciones en la misma cola.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🔍</span>
+      <div class="feature-title">Búsqueda en tiempo real</div>
+      <p class="feature-desc">El cliente escribe letras en el teclado y el sistema filtra canciones al instante. Encuentra cualquier canción entre miles en segundos.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🎵</span>
+      <div class="feature-title">Más de 1,000 artistas</div>
+      <p class="feature-desc">Sin límites artificiales. Rocola Pro maneja más de 1,000 artistas y canciones ilimitadas por artista, probado y verificado.</p>
     </div>
   </div>
 </section>
@@ -971,7 +990,8 @@
     </div>
     <p class="contact-note">
       Respondemos en menos de 24 horas · Asesoría gratuita sin compromiso<br>
-      Instalación disponible en toda Guatemala
+      Instalación disponible en toda Guatemala<br>
+      <span style="color: rgba(255,255,255,0.5); font-size: 13px;">⚠ Para reproducción de videos se requiere tener instalado <a href="https://www.videolan.org/vlc/" target="_blank" style="color: var(--gold);">VLC Media Player</a> (gratuito)</span>
     </p>
   </div>
 </section>
